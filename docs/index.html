@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Genuine Orthodox Synaxarion</title>
+    <style>
+
+    body {
+      font-family: "Courier", monospace;
+      font-optical-sizing: auto;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      line-height: 1.3em;
+    }
+
+    pre {
+      line-height: 1em;
+      background: #FAFAFA;
+      margin: 0 0 20pt 0;
+      padding: 20pt;
+    }
+
+    h1, dl, dt, dd {
+        text-align: center;
+        margin: 0 auto;
+        padding: 0;
+        width: 700pt;
+        max-width: 80vw;
+    }
+
+    dt {
+       margin: 10pt 0 0 0;
+       color: #550000;
+    }
+
+    </style>
+</head>
+<body>
+
+<pre>
+╭─────────╮
+│  ~   ~  │
+│  IC║XC  │
+│ ═══╬═══ │
+│  NI║KA  │
+│   ╔╩╗   │
+╰───╝ ╚───╯
+
+</pre>
+<h1></h1>
+<dl></dl>
+
+<script src="./src/orthodate.js"></script>
+<script src="./src/synaxarion.js"></script>
+<script defer>
+
+const synaxarion = new Synaxarion();
+const pre = document.body.querySelector('pre');
+const h1 = document.body.querySelector('h1');
+const dl = document.body.querySelector('dl');
+
+pre.innerText += synaxarion.today.toLocaleDateString(
+  navigator.language, {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  }
+);
+
+h1.innerText = synaxarion.dict('synaxarion');
+
+synaxarion.fetch().then( r => {
+
+  while (dl.firstChild)
+    dl.removeChild(dl.firstChild);
+
+  let data = JSON.parse(r);
+
+  data.filter(
+    entry => entry.hasOwnProperty('who')
+  ).forEach( entry => {
+    dl.appendChild(
+      document.createElement('dt')
+    ).innerText = entry.who;
+
+    let dd = dl.appendChild(
+      document.createElement('dd')
+    );
+
+    dd.appendChild(
+      document.createElement('i')
+    ).innerText = `${entry.intro}`;
+
+    if (entry.hasOwnProperty('sticharion')) {
+      dd.appendChild(document.createElement('br'));
+      dd.appendChild(
+        document.createElement('b')
+      ).innerHTML = `${entry.sticharion.replace(/\h*\/\h*/g, '<br/>')}`;
+    }
+  });
+
+} );
+
+</script>
+
+</body>
+</html>
