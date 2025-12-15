@@ -7,12 +7,12 @@
     <style>
 
     body {
-      font-family: "Courier", monospace;
       font-optical-sizing: auto;
       text-align: center;
       margin: 0;
       padding: 0;
-      line-height: 1.3em;
+      line-height: 1.5em;
+      font-family: monospace;
     }
 
     pre {
@@ -22,24 +22,41 @@
       padding: 20pt;
     }
 
-    h1, dl, dt, dd {
-        text-align: center;
-        margin: 0 auto;
-        padding: 0;
-        width: 700pt;
-        max-width: 80vw;
+    main {
+      text-align: center;
+      margin: 0 auto;
+      padding: 0;
+      width: 400pt;
+      max-width: 80vw;
+    }
+
+    dl, dd {
+      margin: 0;
+      padding: 5pt;
     }
 
     dt {
-       margin: 10pt 0 0 0;
-       color: #550000;
+     margin: 10pt 0 0 0;
+     padding: 5pt;
+     color: #550000;
+    }
+
+    form select {
+      bottom: 20pt;
+      right: 20pt;
+      position: fixed;
     }
 
     </style>
 </head>
 <body>
 
-<pre>
+<form name="i18n">
+  <select name="locale"></select>
+</form>
+
+<header>
+  <pre>
 ╭─────────╮
 │  ~   ~  │
 │  IC║XC  │
@@ -47,63 +64,19 @@
 │  NI║KA  │
 │   ╔╩╗   │
 ╰───╝ ╚───╯
+  </pre>
+  <p data-i18n="simeron()"></p>
+</header>
 
-</pre>
-<h1></h1>
-<dl></dl>
+<main>
+  <h1 data-i18n="synaxarion"></h1>
+  <dl></dl>
+</main>
 
 <script src="./src/orthodate.js"></script>
 <script src="./src/synaxarion.js"></script>
 <script defer>
-
-const synaxarion = new Synaxarion();
-const pre = document.body.querySelector('pre');
-const h1 = document.body.querySelector('h1');
-const dl = document.body.querySelector('dl');
-
-pre.innerText += synaxarion.today.toLocaleDateString(
-  navigator.language, {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric"
-  }
-);
-
-h1.innerText = synaxarion.dict('synaxarion');
-
-synaxarion.fetch().then( r => {
-
-  while (dl.firstChild)
-    dl.removeChild(dl.firstChild);
-
-  let data = JSON.parse(r);
-
-  data.filter(
-    entry => entry.hasOwnProperty('who')
-  ).forEach( entry => {
-    dl.appendChild(
-      document.createElement('dt')
-    ).innerText = entry.who;
-
-    let dd = dl.appendChild(
-      document.createElement('dd')
-    );
-
-    dd.appendChild(
-      document.createElement('i')
-    ).innerText = `${entry.intro}`;
-
-    if (entry.hasOwnProperty('sticharion')) {
-      dd.appendChild(document.createElement('br'));
-      dd.appendChild(
-        document.createElement('b')
-      ).innerHTML = `${entry.sticharion.replace(/\h*\/\h*/g, '<br/>')}`;
-    }
-  });
-
-} );
-
+  const synaxarion = new Synaxarion();
 </script>
 
 </body>
