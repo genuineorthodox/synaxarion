@@ -6,6 +6,7 @@ use YAML::XS ();
 our %TYPES = (
 	saint => [qw{who intro sticharion}],
 	odes  => [qw{ode verses irmos theotokion tune}],
+	exaposteilarion => [qw{exaposteilarion tune theotokion}]
 );
 
 our %KEYS; map {

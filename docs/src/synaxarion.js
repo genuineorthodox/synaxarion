@@ -29,6 +29,11 @@ class Synaxarion {
       el: "Θεοτοκίον",
       en: "Theotokion",
       de: "Theotokion"
+    },
+    exaposteilarion: {
+      el: "Ἐξαποστειλάριον",
+      en: "Exaposteilarion",
+      de: "Exaposteilarion"
     }
   }
     
