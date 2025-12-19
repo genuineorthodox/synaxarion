@@ -30,10 +30,20 @@ class Synaxarion {
       en: "Theotokion",
       de: "Theotokion"
     },
+    triadikon: {
+      el: "Τριαδικὸν",
+      en: "Triadikon",
+      de: "Triadikon"
+    },
     exaposteilarion: {
       el: "Ἐξαποστειλάριον",
       en: "Exaposteilarion",
       de: "Exaposteilarion"
+    },
+    katavasia: {
+      el: "Καταβασία",
+      en: "Katavasia",
+      de: "Katavasia"
     }
   }
     
@@ -124,9 +134,10 @@ class Synaxarion {
           dd.innerText = verse;
         });
 
-        if (ode.hasOwnProperty('theotokion'))
-          dl.appendChild(document.createElement('dd')).innerHTML =
-            `(${synaxarion.dict('theotokion')})<br/>${ode.theotokion}`;
+        for (let feature of ['triadikon', 'theotokion', 'katavasia'])
+          if (ode.hasOwnProperty(feature))
+            dl.appendChild(document.createElement('dd')).innerHTML =
+              `(${synaxarion.dict(feature)})<br/>${ode[feature]}`;
 
         if (ode.hasOwnProperty('irmos'))
           dl.appendChild(document.createElement('dd')).innerHTML =

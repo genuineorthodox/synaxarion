@@ -5,7 +5,7 @@ use YAML::XS ();
 
 our %TYPES = (
 	saint => [qw{who intro sticharion}],
-	odes  => [qw{ode verses irmos theotokion tune}],
+	odes  => [qw{ode verses irmos theotokion tune triadikon katavasia}],
 	exaposteilarion => [qw{exaposteilarion tune theotokion}]
 );
 
